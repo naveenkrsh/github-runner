@@ -42,9 +42,9 @@ if [[ -n "${CONFIGURED_ACTIONS_RUNNER_FILES_DIR}" ]]; then
   echo "Runner reusage is enabled"
 
   # directory exists, copy the data
-  if [[ -d "${CONFIGURED_ACTIONS_RUNNER_FILES_DIR}" ]]; then
+  if [[ -d "/runner-files/${CONFIGURED_ACTIONS_RUNNER_FILES_DIR}" ]]; then
     echo "Copying previous data"
-    cp -p -r "${CONFIGURED_ACTIONS_RUNNER_FILES_DIR}/." "/actions-runner"
+    cp -p -r "/runner-files/${CONFIGURED_ACTIONS_RUNNER_FILES_DIR}/." "/actions-runner"
   fi
 
   if [ -f "/actions-runner/.runner" ]; then
@@ -59,9 +59,9 @@ fi
 
 if [[ -n "${CONFIGURED_ACTIONS_RUNNER_FILES_DIR}" ]]; then
   echo "Reusage is enabled. Storing data to ${CONFIGURED_ACTIONS_RUNNER_FILES_DIR}"
-  mkdir -p ${CONFIGURED_ACTIONS_RUNNER_FILES_DIR}
+  mkdir -p /runner-files/${CONFIGURED_ACTIONS_RUNNER_FILES_DIR}
   # Quoting (even with double-quotes) the regexp brokes the copying
-  cp -p -r "/actions-runner/_diag" "/actions-runner/svc.sh" /actions-runner/.[^.]* "${CONFIGURED_ACTIONS_RUNNER_FILES_DIR}"
+  cp -p -r "/actions-runner/_diag" "/actions-runner/svc.sh" /actions-runner/.[^.]* "/runner-files/${CONFIGURED_ACTIONS_RUNNER_FILES_DIR}"
 fi
 
 exec /actions-runner/run.sh
